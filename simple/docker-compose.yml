@@ -1,0 +1,53 @@
+version: '2'
+services:
+  web1:
+    container_name: web1
+    build:
+      context: .
+      dockerfile: Dockerfile-web
+    tty: false
+    ports:
+      - "3122:22"
+      - "3180:80"
+    networks:
+      ansible_net:
+        ipv4_address: 172.16.239.11
+  web2:
+    container_name: web2
+    build:
+      context: .
+      dockerfile: Dockerfile-web
+    ports:
+      - "3222:22"
+      - "3280:80"
+    networks:
+      ansible_net:
+        ipv4_address: 172.16.239.12
+  ansible:
+    container_name: ansible
+    depends_on:
+      - web1
+      - web2
+    build:
+      context: .
+      dockerfile: Dockerfile-ansible
+    extra_hosts:
+      - "web1:172.16.239.11"
+      - "web2:172.16.239.12"
+    command: ./start.sh
+    networks:
+      ansible_net:
+        ipv4_address: 172.16.239.16
+networks:
+  ansible_net:
+    driver: bridge
+    driver_opts:
+      com.docker.network.enable_ipv6: "true"
+    ipam:
+      driver: default
+      config:
+      - subnet: 172.16.239.0/24
+        gateway: 172.16.239.1
+      - subnet: 2001:3984:3989::/64
+        gateway: 2001:3984:3989::1
+

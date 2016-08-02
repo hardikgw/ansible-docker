@@ -1,8 +1,5 @@
 ansible
 
 [webservers]
-web1
-web2
-
-[dbs]
-db1
+web1 ansible_ssh_pass=root ansible_ssh_user=root
+web2nansible_ssh_pass=root ansible_ssh_user=root
