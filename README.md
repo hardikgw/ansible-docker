@@ -10,3 +10,8 @@
   - git clone
   - docker-compose up -d
   - docker exec ansible ansible-playbook automate.yml
+
+### cleanup
+  - docker stop ansible web1 web2
+  - docker rm ansible web1 web2
+  - docker rmi $(docker images -q simple_*)
