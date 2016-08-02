@@ -1,7 +1,7 @@
-FROM ubuntu:16.04
+FROM ubuntu:14.04
 MAINTAINER hardikgw@gmail.com
 RUN apt-get update
-RUN apt-get install -y vim curl wget monit
+RUN apt-get install -y vim curl wget monit python-simplejson
 RUN apt-get update && \
     apt-get install --no-install-recommends -y software-properties-common && \
     apt-add-repository ppa:ansible/ansible && \
@@ -11,6 +11,7 @@ RUN touch start.sh &&\
 	echo "#!/usr/bin/env bash" >> start.sh &&\
 	echo "export ANSIBLE_HOST_KEY_CHECKING=False" &&\
 	echo "monit -I" >> start.sh &&\
-	chmod 755 start.she
+	chmod 755 start.sh
 COPY conf/ansible_hosts /etc/ansible/hosts
+COPY conf/ansible.cfg /etc/ansible/ansible.cfg
 COPY conf/automate.yml /automate.yml

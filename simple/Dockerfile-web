@@ -1,6 +1,6 @@
 FROM httpd
 MAINTAINER hardikgw@gmail.com
-RUN apt-get update && apt-get install -y openssh-server monit
+RUN apt-get update && apt-get install -y openssh-server monit python-simplejson
 RUN mkdir /var/run/sshd
 RUN echo 'root:root' | chpasswd
 RUN sed -i 's/PermitRootLogin without-password/PermitRootLogin yes/' /etc/ssh/sshd_config

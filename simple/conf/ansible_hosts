@@ -2,4 +2,4 @@ ansible
 
 [webservers]
 web1 ansible_ssh_pass=root ansible_ssh_user=root
-web2nansible_ssh_pass=root ansible_ssh_user=root
+web2 ansible_ssh_pass=root ansible_ssh_user=root
