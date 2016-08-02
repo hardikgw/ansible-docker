@@ -1,4 +1,4 @@
-## examples for ansible using docke rimages
+## examples for ansible using docker
 
 ### simple:
 
