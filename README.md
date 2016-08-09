@@ -9,6 +9,8 @@
 #### steps
   - git clone
   - docker-compose up -d
+  - docker exec web1 /usr/sbin/sshd
+  - docker exec web2 /usr/sbin/sshd
   - docker exec ansible ansible-playbook automate.yml
 
 ### cleanup
