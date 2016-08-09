@@ -2,4 +2,7 @@ FROM mysql
 MAINTAINER 'hardikgw@gmail.com'
 ENV\
 	MYSQL_ROOT_PASSWORD=root
+COPY conf/mysql-init.sql /mysql-init.sql
+COPY conf/createdb.sh /createdb.sh
+RUN chmod 755 /createdb.sh
 EXPOSE 3306
