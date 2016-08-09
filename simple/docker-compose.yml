@@ -11,6 +11,8 @@ services:
       - "3122:22"
       - "3180:80"
       - "8101:8001"
+    extra_hosts:
+      - "mysql:172.16.239.13"
     networks:
       ansible_net:
         ipv4_address: 172.16.239.11
@@ -24,9 +26,26 @@ services:
       - "3222:22"
       - "3280:80"
       - "8201:8001"
+    extra_hosts:
+      - "mysql:172.16.239.13"
     networks:
       ansible_net:
         ipv4_address: 172.16.239.12
+  db:
+    build:
+      context: .
+      dockerfile: Dockerfile-mysql
+    container_name: mysql
+    ports:
+      - "3306:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+    extra_hosts:
+      - "web1:172.16.239.11"
+      - "web2:172.16.239.12"
+    networks:
+      ansible_net:
+        ipv4_address: 172.16.239.13
   ansible:
     container_name: ansible
     depends_on:
