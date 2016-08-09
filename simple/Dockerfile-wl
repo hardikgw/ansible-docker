@@ -3,11 +3,13 @@ MAINTAINER hardikgw@gmail.com
 USER root
 RUN ssh-keygen -A
 RUN echo 'root:root' | chpasswd
-
+COPY conf/datasource_mysql.properties /datasource_mysql.properties
+COPY conf/ds-deploy-mysql.py /ds-deploy-mysql.py
 RUN touch start.sh &&\
 	echo "#!/usr/bin/env bash" >> /start.sh &&\
 	echo "/usr/sbin/sshd" &&\
 	echo "./startWebLogic.sh" >> start.sh &&\
-	chmod 755 start.sh
+	chmod 755 start.sh &&\
+	wlst -loadproperties datasource_mysql.properties ds-deploy-mysql.py
 CMD ./start.sh
 EXPOSE 22
