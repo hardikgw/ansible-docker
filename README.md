@@ -7,13 +7,13 @@
 - creates playbook to check connections
 
 #### steps
-  - git clone
-  - docker-compose up -d
-  - docker exec web1 /usr/sbin/sshd
-  - docker exec web2 /usr/sbin/sshd
-  - docker exec ansible ansible-playbook automate.yml
+  - `git clone`
+  - `docker-compose up -d`
+  - `docker exec web1 /usr/sbin/sshd`
+  - `docker exec web2 /usr/sbin/sshd`
+  - `docker exec ansible ansible-playbook automate.yml`
 
 ### cleanup
-  - docker stop ansible web1 web2
-  - docker rm ansible web1 web2
-  - docker rmi $(docker images -q simple_*)
+  - `docker stop ansible web1 web2`
+  - `docker rm ansible web1 web2`
+  - `docker rmi $(docker images -q simple_*)`
