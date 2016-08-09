@@ -10,6 +10,6 @@ RUN touch start.sh &&\
 	echo "/usr/sbin/sshd" &&\
 	echo "./startWebLogic.sh" >> start.sh &&\
 	chmod 755 start.sh &&\
-	wlst -loadproperties datasource_mysql.properties ds-deploy-mysql.py
+	wlst -loadProperties /datasource_mysql.properties /ds-deploy-mysql.py
 CMD ./start.sh
 EXPOSE 22
