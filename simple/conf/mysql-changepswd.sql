@@ -1,1 +1,1 @@
-SET PASSWORD 'demo'@'%' = @newpassword
+SET PASSWORD 'demo'@'%' = @newpswd
