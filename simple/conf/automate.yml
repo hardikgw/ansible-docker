@@ -1,5 +1,5 @@
 ---
-- hosts: webservers
+- hosts: webservers:database
   vars:
     max_clients: 200
   remote_user: root

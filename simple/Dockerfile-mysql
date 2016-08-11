@@ -2,7 +2,21 @@ FROM mysql
 MAINTAINER 'hardikgw@gmail.com'
 ENV\
 	MYSQL_ROOT_PASSWORD=root
+USER root
+RUN apt-get update && apt-get install -y openssh-server monit python-simplejson
+RUN mkdir /var/run/sshd
+RUN echo 'root:root' | chpasswd
+RUN sed -i 's/PermitRootLogin without-password/PermitRootLogin yes/' /etc/ssh/sshd_config
+
+# SSH login fix. Otherwise user is kicked off after login
+RUN sed 's@session\s*required\s*pam_loginuid.so@session optional pam_loginuid.so@g' -i /etc/pam.d/sshd
+
+ENV NOTVISIBLE "in users profile"
+RUN echo "export VISIBLE=now" >> /etc/profile
 COPY conf/mysql-init.sql /mysql-init.sql
-COPY conf/createdb.sh /createdb.sh
-RUN chmod 755 /createdb.sh
+COPY conf/mysql-create-db.sh /mysql-create-db.sh
+COPY conf/mysql-change-pswd.sql /mysql-change-pswd.sql
+COPY conf/mysql-change-pswd.sh /mysql-change-pswd.sh
+RUN chmod 755 /mysql-create-db.sh &&\
+	chmod 755 /mysql-change-pswd.sh
 EXPOSE 3306

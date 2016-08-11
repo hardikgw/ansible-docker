@@ -1,5 +1,7 @@
 import os
 
+newPassword = sys.argv[1]
+
 print("*** Trying to Connect.... *****")
 connect('weblogic','welcome1','t3://localhost:8001')
 print("*** Connected *****")
@@ -8,7 +10,7 @@ startEdit()
 
 
 print ("*** Encrypt the password ***")
-en = encrypt('demopw')
+en = encrypt(newPassword)
 print "Encrypted pwd: ", en
 
 print ("*** Changing pwd for Demo ***")

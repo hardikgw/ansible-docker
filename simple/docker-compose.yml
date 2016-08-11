@@ -13,6 +13,7 @@ services:
       - "3122:22"
       - "3180:80"
       - "8101:8001"
+      - "7101:7001"
     extra_hosts:
       - "mysql:172.16.239.13"
     networks:
@@ -30,6 +31,7 @@ services:
       - "3222:22"
       - "3280:80"
       - "8201:8001"
+      - "7201:7001"
     extra_hosts:
       - "mysql:172.16.239.13"
     networks:
@@ -41,6 +43,7 @@ services:
       dockerfile: Dockerfile-mysql
     container_name: mysql
     ports:
+      - "3322:22"
       - "3306:3306"
     environment:
       - MYSQL_ROOT_PASSWORD=root
@@ -61,6 +64,7 @@ services:
     extra_hosts:
       - "web1:172.16.239.11"
       - "web2:172.16.239.12"
+      - "mysql:172.16.239.13"
     command: ./start.sh
     networks:
       ansible_net:
