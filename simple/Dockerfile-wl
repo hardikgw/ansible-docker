@@ -6,6 +6,8 @@ RUN echo 'root:root' | chpasswd
 COPY conf/datasource_mysql.properties /datasource_mysql.properties
 COPY conf/ds-deploy-mysql.py /ds-deploy-mysql.py
 COPY conf/wl-change-pswd.py /wl-change-pswd.py
+COPY conf/wl-restart.py /wl-restart.py
+COPY conf/wl-create-server.py /wl-create-server.py
 RUN touch start.sh &&\
 	echo "#!/usr/bin/env bash" >> /start.sh &&\
 	echo "/usr/sbin/sshd" &&\

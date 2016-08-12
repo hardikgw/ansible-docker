@@ -12,6 +12,7 @@ import os
 domainname = os.environ.get('DOMAIN_NAME', 'base_domain')
 domainhome = os.environ.get('DOMAIN_HOME', '/u01/oracle/user_projects/domains/' + domainname)
 cluster_name = os.environ.get("CLUSTER_NAME", "DockerCluster")
+server_name = os.environ.get("SERVER_NAME", "DockerServer")
 
 # Read Domain in Offline Mode
 # ===========================

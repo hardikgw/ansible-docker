@@ -15,3 +15,4 @@ RUN touch start.sh &&\
 COPY conf/ansible_hosts /etc/ansible/hosts
 COPY conf/ansible.cfg /etc/ansible/ansible.cfg
 COPY conf/automate.yml /automate.yml
+COPY conf/ping.yml /ping.yml

@@ -10,3 +10,20 @@
       become: yes
       become_user: oracle
       shell: source ~/.bashrc && wlst /wl-change-pswd.py newpassword
+- hosts: database
+  tasks:
+    - name: change db password
+      shell: /mysql-change-pswd.sh newpassowrd
+- hosts: webservers
+  become: yes
+  become_user: oracle
+  become_method: su
+  gather_facts: yes
+  remote_user: root
+  tasks:
+    - name: restart weblogic
+      become: yes
+      become_user: oracle
+      shell: source ~/.bashrc && wlst /wl-change-pswd.py newpassword
+
+

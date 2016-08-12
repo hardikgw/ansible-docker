@@ -13,10 +13,8 @@ RUN sed 's@session\s*required\s*pam_loginuid.so@session optional pam_loginuid.so
 
 ENV NOTVISIBLE "in users profile"
 RUN echo "export VISIBLE=now" >> /etc/profile
-COPY conf/mysql-init.sql /mysql-init.sql
-COPY conf/mysql-create-db.sh /mysql-create-db.sh
+COPY conf/mysql-init.sql //docker-entrypoint-initdb.d/mysql-init.sql
 COPY conf/mysql-change-pswd.sql /mysql-change-pswd.sql
 COPY conf/mysql-change-pswd.sh /mysql-change-pswd.sh
-RUN chmod 755 /mysql-create-db.sh &&\
-	chmod 755 /mysql-change-pswd.sh
+RUN chmod 755 /mysql-change-pswd.sh
 EXPOSE 3306
