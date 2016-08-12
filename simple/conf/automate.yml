@@ -1,9 +1,12 @@
 ---
-- hosts: webservers:database
-  vars:
-    max_clients: 200
+- hosts: webservers
+  become: yes
+  become_user: oracle
+  become_method: su
+  gather_facts: yes
   remote_user: root
   tasks:
-    - name: test connection
-      ping:
-      remote_user: root
+    - name: change weblogic datasource password
+      become: yes
+      become_user: oracle
+      shell: source ~/.bashrc && wlst /wl-change-pswd.py newpassword
