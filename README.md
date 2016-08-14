@@ -21,3 +21,8 @@
 
 ### Dependencies
   - docker-compose assumes the following images
+    - oracle/weblogic with domain -t 1213-domain
+  - other network download will occur as below
+    - mysql
+    - ubuntu updates
+    - ansible
