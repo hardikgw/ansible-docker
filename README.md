@@ -14,6 +14,21 @@
   - `docker exec mysql /usr/sbin/sshd`
   - `docker exec ansible ansible-playbook automate.yml`
 
+#### Container names / host names
+  - web1 (weblogic)
+  - web2 (weblogic)
+  - mysql (mysql + python) - db port 3306
+  - ansible (ansible + python)
+
+#### URLs
+  - Web1 (weblogic) : http://localhost:8101/console/
+  - Web2 (weblogic) : http://localhost:8201/console/
+
+#### SSH
+  - web1 (weblogic) : -p 3122
+  - web2 (weblogic) : -p 3222
+  - mysql (mysql)   : -p 3333
+
 ### Cleanup
   - `docker stop ansible web1 web2`
   - `docker rm ansible web1 web2`
