@@ -27,7 +27,7 @@
 #### SSH
   - web1 (weblogic) : -p 3122
   - web2 (weblogic) : -p 3222
-  - mysql (mysql)   : -p 3333
+  - mysql (mysql)   : -p 3322
 
 ### Cleanup
   - `docker stop ansible web1 web2`
