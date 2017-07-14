@@ -1,0 +1,9 @@
+---
+- hosts: web
+  vars:
+    max_clients: 200
+  remote_user: root
+  tasks:
+    - name: test connection
+      ping:
+      remote_user: admin

@@ -4,6 +4,14 @@
     max_clients: 200
   remote_user: admin
   tasks:
-    - name: test connection
+    - name: mq connection
       ping:
       remote_user: admin
+- hosts: webservers
+  vars:
+    max_clients: 200
+  remote_user: root
+  tasks:
+    - name: web connection
+      ping:
+      remote_user: root

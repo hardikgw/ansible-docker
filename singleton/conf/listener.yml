@@ -1,0 +1,10 @@
+- hosts: webservers:web1
+  remote_user: root
+  tasks:
+  - name: start listener
+    uri:
+      url: http://localhost:8080/jms/admin
+      method: POST
+      body: "start"
+      status_code: 200
+      body_format: json

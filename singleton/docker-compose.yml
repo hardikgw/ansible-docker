@@ -3,7 +3,9 @@ services:
   web1:
     container_name: web1
     user: root
-    image: cithub/ubuntu
+    build:
+      context: .
+      dockerfile: Dockerfile-web
     tty: false
     ports:
       - "3121:22"
@@ -16,7 +18,9 @@ services:
   web2:
     container_name: web2
     user: root
-    image: cithub/ubuntu
+    build:
+      context: .
+      dockerfile: Dockerfile-web
     ports:
       - "3122:22"
       - "8082:8080"
@@ -52,7 +56,7 @@ services:
       - mq
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile-ansible
     extra_hosts:
       - "web1:172.16.239.11"
       - "web2:172.16.239.12"
