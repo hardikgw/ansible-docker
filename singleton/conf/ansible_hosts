@@ -1,0 +1,8 @@
+ansible
+
+[webservers]
+web1 ansible_connection=ssh ansible_ssh_pass=root ansible_ssh_user=root
+web2 ansible_connection=ssh ansible_ssh_pass=root ansible_ssh_user=root
+
+[mq]
+mq ansible_connection=ssh ansible_user=admin ansible_ssh_pass=passw0rd

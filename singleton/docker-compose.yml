@@ -1,0 +1,75 @@
+version: '2'
+services:
+  web1:
+    container_name: web1
+    user: root
+    image: cithub/ubuntu
+    tty: false
+    ports:
+      - "3121:22"
+      - "8081:8080"
+    extra_hosts:
+      - "mq:172.16.239.13"
+    networks:
+      ansible_net:
+        ipv4_address: 172.16.239.11
+  web2:
+    container_name: web2
+    user: root
+    image: cithub/ubuntu
+    ports:
+      - "3122:22"
+      - "8082:8080"
+    extra_hosts:
+      - "mq:172.16.239.13"
+    networks:
+      ansible_net:
+        ipv4_address: 172.16.239.12
+  mq:
+    image: ibmcom/mq
+    container_name: mq
+    build:
+      context: .
+      dockerfile: Dockerfile-mq
+    ports:
+      - "3323:22"
+      - "1414:1414"
+      - "9443:9443"
+    environment:
+      - MQ_QMGR_NAME=QM1
+      - LICENSE=accept
+    extra_hosts:
+      - "web1:172.16.239.11"
+      - "web2:172.16.239.12"
+    networks:
+      ansible_net:
+        ipv4_address: 172.16.239.13  
+  ansible:
+    container_name: ansible
+    depends_on:
+      - web1
+      - web2
+      - mq
+    build:
+      context: .
+      dockerfile: Dockerfile
+    extra_hosts:
+      - "web1:172.16.239.11"
+      - "web2:172.16.239.12"
+      - "mq:172.16.239.13"
+    command: ./start.sh
+    networks:
+      ansible_net:
+        ipv4_address: 172.16.239.16
+networks:
+  ansible_net:
+    driver: bridge
+    driver_opts:
+      com.docker.network.enable_ipv6: "true"
+    ipam:
+      driver: default
+      config:
+      - subnet: 172.16.239.0/24
+        gateway: 172.16.239.1
+      - subnet: 2001:3984:3989::/64
+        gateway: 2001:3984:3989::1

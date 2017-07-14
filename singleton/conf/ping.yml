@@ -1,0 +1,9 @@
+---
+- hosts: mq:mq
+  vars:
+    max_clients: 200
+  remote_user: admin
+  tasks:
+    - name: test connection
+      ping:
+      remote_user: admin
