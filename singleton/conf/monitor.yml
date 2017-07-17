@@ -21,6 +21,7 @@
       register: status
       when: "'web1' in inventory_hostname"
       until: status == "ok"
-      retries: 0
+      retries: 1
       register: status
+
     - debug: msg="{{status}}"

@@ -1,8 +1,5 @@
 FROM ibmcom/mq
 MAINTAINER hpatel@channelit.biz
-RUN apt-get update && apt-get install -y openssh-server python-simplejson &&\
-	apt-get update &&\
-	apt-get clean &&\
-	mkdir -p /home/admin
+RUN mkdir -p /home/admin
 EXPOSE 22
 CMD ["service ssh start","mq.sh"]
