@@ -4,5 +4,23 @@
     max_clients: 200
   remote_user: root
   tasks:
-    - include: start.yml
+    - name: start primary listener
+      include: start.yml
       when: "'web1' in inventory_hostname"
+    - debug: msg="{{response}}"
+
+    - name: check status untill fail
+      uri:
+        url: http://localhost:8080/jms/admin
+        method: POST
+        body: "status"
+        return_content: yes
+        body_format: json
+        status_code: 200,201
+        timeout: 60
+      register: status
+      when: "'web1' in inventory_hostname"
+      until: status == "ok"
+      retries: 0
+      register: status
+    - debug: msg="{{status}}"

@@ -1,0 +1,10 @@
+- name: check status
+  uri:
+    url: http://localhost:8080/jms/admin
+    method: POST
+    body: "status"
+    return_content: yes
+    body_format: json
+    status_code: 200,201
+    timeout: 60
+  register: status
