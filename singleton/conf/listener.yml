@@ -1,10 +1,18 @@
 - hosts: webservers:web1
   remote_user: root
   tasks:
+  
   - name: start listener
     uri:
       url: http://localhost:8080/jms/admin
       method: POST
       body: "start"
-      status_code: 200
-      body_format: json
+      return_content: yes
+      body_format: raw
+      status_code: 200,201
+      timeout: 60
+    register: webpage
+
+  - name: fail if listener not started
+    fail:
+    when: "'started' not in webpage.content"

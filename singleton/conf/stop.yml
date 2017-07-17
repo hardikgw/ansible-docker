@@ -1,0 +1,10 @@
+- name: start listener
+  uri:
+    url: http://localhost:8080/jms/admin
+    method: POST
+    body: "stop"
+    return_content: yes
+    body_format: json
+    status_code: 200,201
+    timeout: 60
+  register: response
