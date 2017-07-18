@@ -1,4 +1,4 @@
-- name: check status
+- name: check listener status
   uri:
     url: http://localhost:8080/jms/admin
     method: POST
@@ -7,4 +7,4 @@
     body_format: json
     status_code: 200,201
     timeout: 60
-  register: status
+  register: listener_status

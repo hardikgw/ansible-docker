@@ -1,27 +1,35 @@
 ---
+
 - hosts: webservers
-  vars:
-    max_clients: 200
   remote_user: root
   tasks:
-    - name: start primary listener
+    - name: check all status
+      include: status.yml
+      register: listener_status
+    - debug: msg="{{listener_status}}"
+
+- hosts: web1
+  remote_user: root
+  tasks:
+    - name: start primary if down
       include: start.yml
-      when: "'web1' in inventory_hostname"
-    - debug: msg="{{response}}"
+      when: hostvars.web1.listener_status.content != "ok"
+    - debug: msg="{{hostvars.web1.listener_status.content}}"
 
-    - name: check status untill fail
-      uri:
-        url: http://localhost:8080/jms/admin
-        method: POST
-        body: "status"
-        return_content: yes
-        body_format: json
-        status_code: 200,201
-        timeout: 60
-      register: status
-      when: "'web1' in inventory_hostname"
-      until: status == "ok"
-      retries: 1
-      register: status
+    - name: update primary status
+      include: status.yml
+      register: listener_status
+    - debug: msg="{{listener_status}}"
 
-    - debug: msg="{{status}}"
+- hosts: web2
+  remote_user: root
+  tasks:
+    - name: start secondary if primary is down
+      include: start.yml
+      when: hostvars.web1.listener_status.content != "ok"
+    - debug: msg="{{hostvars.web1.listener_status.content}}"
+
+    - name: stop secondary if primary is up
+      include: stop.yml
+      when: hostvars.web1.listener_status.content == "ok"
+    - debug: msg="{{hostvars.web1.listener_status.content}}"
