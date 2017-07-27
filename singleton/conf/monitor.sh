@@ -1,7 +1,7 @@
 #!/bin/bash
 
-#export WEB1="http://localhost:8081"
-#export WEB2="http://localhost:8082"
+export WEB1="http://localhost:8081"
+export WEB2="http://localhost:8082"
 
 if [ -z "$WEB1" ] || [ -z "$WEB2" ]; then
     echo "WEB1, WEB2 not defined"
@@ -18,9 +18,10 @@ function checkStatus() {
 	echo "WEB1 Status is $WEB1Status"
 	echo "WEB2 Status is $WEB2Status"
 }
+
 checkStatus
 
-if [ $WEB1Status != "-ok" ]; then
+if [ $WEB1Status != "-ok" ] && [ $WEB2Status != "-ok" ]; then
 	echo WEB1 $(runCommand $WEB1 start)
 fi
 
